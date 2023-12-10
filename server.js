@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const app = express();
+//Uniqid is an external package that will create a randmo id for my db.json notes
 const uniqid = require("uniqid");
 const PORT = process.env.PORT || 3001;
 const { readFile, writeFile } = require("fs").promises
@@ -10,11 +11,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static("public"));
-
-// Getting the html route for index.html
-app.get("*", (re, res) => { 
-    res.sendFile(path.join(__dirname, "/public/index.html"));
-});
 
 //Getting the html route for notes.html
 app.get("/notes", function(req, res) {
@@ -27,18 +23,25 @@ app.get("/api/notes", (req, res) => {
 });
 
 //Post users note after parsing it and then turning it to a string
-app.post("api/notes", async (req,res) => {
+app.post("/api/notes", async (req, res) => {
     const noteData = await readFile("./db/db.json", "utf8")
     const parsedNote = JSON.parse(noteData);
     const newNote = {
         title: req.body.title,
         text: req.body.text,
+        // Calling on uniqid to generate a random id for my newnote
         id: uniqid()
     }
     parsedNote.push(newNote);
     await writeFile("./db/db.json", JSON.stringify(parsedNote));
     res.json("note saved")
 });
+
+// Getting the html route for index.html
+app.get("/*", (re, res) => { 
+    res.sendFile(path.join(__dirname, "/public/index.html"));
+});
+
 
 app.listen(PORT, () => {
     console.log(`App listening at http://localhost:${PORT}`)
