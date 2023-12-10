@@ -2,9 +2,13 @@
 
 ## Table of Content
 [About](#about)
+
 [Installation](#installation)
+
 [Installation](#installation)
+
 [Demonstration](#demonstration)
+
 [Links](#links)
 
 ## About
@@ -16,7 +20,7 @@ This application allows a user to store multiple notes
 - Last type "npm start" to make the application live with a live server
 
 ## Demonstration
-
+<img src="./public/assets/images/Express-Note-Taker.gif">
 
 ## Links
 Demonstarion video- https://drive.google.com/file/d/1PLInAGdE_kmSEfzJzANbq7-3FtdHXlPQ/view
